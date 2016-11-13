@@ -12,7 +12,10 @@
     "https://api.twitch.tv/"
   ],
   "browser_action": {
-    "default_title": "Alderiate Live"
+    "default_title": "Alderiate Live",
+    "default_icon": {
+      "48": "icons/alderiate_48.png"
+    }
   },
   "background": {
     "scripts": ["background.js"]

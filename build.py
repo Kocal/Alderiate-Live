@@ -19,8 +19,6 @@ def extract_extension_version(browser):
         with open('chrome/manifest.json') as content:
             content_json = json.load(content)
             extension_version = content_json.get('version')
-    elif browser == 'firefox':
-        raise NotImplementedError()
     else:
         help()
 
@@ -30,10 +28,15 @@ def extract_extension_version(browser):
 def main():
     try:
         browser = sys.argv[1]
+
+        # https://developer.mozilla.org/en-US/Add-ons/WebExtensions
+        if browser == 'firefox':
+            browser = 'chrome'
+
         extension_version = extract_extension_version(browser)
         zip_name = 'dist/{}-{}'.format(browser, extension_version)
 
-        print('Building {}'.format(zip_name))
+        print('Building {}.zip'.format(zip_name))
 
         shutil.make_archive(zip_name, 'zip', browser)
         print('Ok')
