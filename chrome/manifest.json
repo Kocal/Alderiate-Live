@@ -1,7 +1,7 @@
 {
   "name": "Alderiate Live",
   "description": "Indique si mon petit fréro Alderiate est en train de stream !!",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "icons": {
     "48": "icons/alderiate_48.png",

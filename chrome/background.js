@@ -85,17 +85,11 @@ class AlderiateLive {
         setTimeout(_ => this.updateStreamState(), 60 * 1000)
     }
 
-    /**
-     * Affiche Xp4 en-ligne
-     */
     putOnline() {
         chrome.browserAction.setBadgeText({text: 'ON'})
         chrome.browserAction.setBadgeBackgroundColor({color: 'green'})
     }
 
-    /**
-     * Affiche Xp4 hors-ligne
-     */
     putOffline() {
         chrome.browserAction.setBadgeText({text: 'OFF'})
         chrome.browserAction.setBadgeBackgroundColor({color: 'gray'})
