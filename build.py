@@ -4,44 +4,30 @@ from __future__ import print_function
 
 import json
 import shutil
-import sys
+
+EXTENSION_DIR = 'extension'
+DIST_DIR = 'dist'
 
 
-def help():
-    print('Usage: %s (chrome | firefox)' % sys.argv[0])
-    sys.exit(1)
+def extract_extension_data():
+    with open(EXTENSION_DIR + '/manifest.json') as content:
+        content_json = json.load(content)
+        name = content_json.get('name')
+        extension_version = content_json.get('version')
 
-
-def extract_extension_version(browser):
-    extension_version = ''
-
-    if browser == 'chrome':
-        with open('chrome/manifest.json') as content:
-            content_json = json.load(content)
-            extension_version = content_json.get('version')
-    else:
-        help()
-
-    return extension_version
+    return [name, extension_version]
 
 
 def main():
+    [name, version] = extract_extension_data()
+    zip_name = '{}/{}-{}'.format(DIST_DIR, name, version)
+
+    print('Building {}.zip'.format(zip_name))
     try:
-        browser = sys.argv[1]
-
-        # https://developer.mozilla.org/en-US/Add-ons/WebExtensions
-        if browser == 'firefox':
-            browser = 'chrome'
-
-        extension_version = extract_extension_version(browser)
-        zip_name = 'dist/{}-{}'.format(browser, extension_version)
-
-        print('Building {}.zip'.format(zip_name))
-
-        shutil.make_archive(zip_name, 'zip', browser)
+        shutil.make_archive(zip_name, 'zip', EXTENSION_DIR)
         print('Ok')
-    except IndexError:
-        help()
+    except Exception as e:
+        raise e
 
 
 if __name__ == '__main__':
