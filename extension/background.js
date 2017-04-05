@@ -6,27 +6,26 @@ class AlderiateLive {
          * Le CLIENT-ID de l'application pour utiliser l'API de Twitch.
          * @type {string}
          */
-        this.CLIENT_ID = 'ohkwxw5a5g5h3kgm2g17uqbd1ayg7jr'
+        this.CLIENT_ID = 'ohkwxw5a5g5h3kgm2g17uqbd1ayg7jr';
 
         /**
          * L'URL a appeler pour avoir les infos sur un stream.
          * @type {string}
          */
-        this.API_URL_STREAM = 'https://api.twitch.tv/kraken/streams/alderiate'
+        this.API_URL_STREAM = 'https://api.twitch.tv/kraken/streams/?channel=77452537';
 
         /**
          * L'URL du stream Twitch.
          * @type {string}
          */
-        this.URL_STREAM = 'https://www.twitch.tv/alderiate'
+        this.URL_STREAM = 'https://www.twitch.tv/alderiate';
 
         /**
-         * Est-ce que le petit fréro est en-ligne ???
          * @type {Boolean|null}
          */
-        this.isOnline = null
+        this.isOnline = null;
 
-        this.updateStreamState()
+        this.updateStreamState();
         this.setupBadge()
     }
 
@@ -45,14 +44,14 @@ class AlderiateLive {
      * Met à jour l'état en-ligne/hors-ligne d'un stream en particulier, en appelant l'API Twitch.
      */
     updateStreamState() {
-        let xhr = new XMLHttpRequest()
+        let xhr = new XMLHttpRequest();
 
         // Connection à l'API de Twitch
-        xhr.open('GET', this.API_URL_STREAM, true)
-        xhr.setRequestHeader('Accept', 'application/vnd.twitchtv.v3+json')
-        xhr.setRequestHeader('Client-ID', this.CLIENT_ID)
+        xhr.open('GET', this.API_URL_STREAM, true);
+        xhr.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+        xhr.setRequestHeader('Client-ID', this.CLIENT_ID);
         xhr.onreadystatechange = e => {
-            if (xhr.readyState == 4 && xhr.status == 200) {
+            if (xhr.readyState === 4 && xhr.status === 200) {
                 try {
                     this.handleResponse(JSON.parse(xhr.responseText))
                 } catch (e) {
@@ -60,7 +59,7 @@ class AlderiateLive {
                     console.info(e, xhr.responseText)
                 }
             }
-        }
+        };
         xhr.send(null)
     }
 
@@ -69,31 +68,31 @@ class AlderiateLive {
      * @param {Object} json Les données en JSON retournées par l'API Twitch
      */
     handleResponse(json) {
-        let isOnline = json.stream !== null
+        let isOnline = json['streams'].length > 0;
 
         if (this.isOnline === false && isOnline === true) {
-            chrome.notifications.create('xp4', {
+            chrome.notifications.create('alderiate', {
                 type: 'basic',
                 iconUrl: '../icons/alderiate_128.png',
                 title: 'Alderiate est actuellement en live !',
-                message: json.stream.channel.status.trim()
+                message: json['streams'][0]['channel']['status'].trim()
             }, _ => chrome.notifications.onClicked.addListener(_ => this._openStream()))
         }
 
-        isOnline ? this.putOnline() : this.putOffline()
-        this.isOnline = isOnline
+        isOnline ? this.putOnline() : this.putOffline();
+        this.isOnline = isOnline;
         setTimeout(_ => this.updateStreamState(), 60 * 1000)
     }
 
     putOnline() {
-        chrome.browserAction.setBadgeText({text: 'ON'})
+        chrome.browserAction.setBadgeText({text: 'ON'});
         chrome.browserAction.setBadgeBackgroundColor({color: 'green'})
     }
 
     putOffline() {
-        chrome.browserAction.setBadgeText({text: 'OFF'})
+        chrome.browserAction.setBadgeText({text: 'OFF'});
         chrome.browserAction.setBadgeBackgroundColor({color: 'gray'})
     }
 }
 
-new AlderiateLive()
+window.AL = new AlderiateLive();
