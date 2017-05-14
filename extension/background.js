@@ -4,9 +4,14 @@ class AlderiateLive {
 
         /**
          * Le CLIENT-ID de l'application pour utiliser l'API de Twitch.
-         * @type {string}
+         * @type {Array.<String>}
          */
-        this.CLIENT_ID = 'ohkwxw5a5g5h3kgm2g17uqbd1ayg7jr';
+        this.CLIENT_IDS = [
+            'ohkwxw5a5g5h3kgm2g17uqbd1ayg7jr',
+            'te12rc42pyoc9w8fa616aefvxyofon',
+            '1ap2u0exhza74u3e7uc6y585ellqw2n',
+            'qgyxrwjpdukc345k0udgna3rengpse'
+        ];
 
         /**
          * L'URL a appeler pour avoir les infos sur un stream.
@@ -45,11 +50,12 @@ class AlderiateLive {
      */
     updateStreamState() {
         let xhr = new XMLHttpRequest();
+        const clientId = this.CLIENT_IDS[Math.floor(Math.random() * this.CLIENT_IDS.length)];
 
         // Connection à l'API de Twitch
         xhr.open('GET', this.API_URL_STREAM, true);
         xhr.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
-        xhr.setRequestHeader('Client-ID', this.CLIENT_ID);
+        xhr.setRequestHeader('Client-ID', clientId);
         xhr.onreadystatechange = e => {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 try {
@@ -81,7 +87,10 @@ class AlderiateLive {
 
         isOnline ? this.putOnline() : this.putOffline();
         this.isOnline = isOnline;
-        setTimeout(_ => this.updateStreamState(), 60 * 1000)
+
+        // Entre 1 et 3 minutes
+        const timeToWaitBeforeNextUpdate = (Math.random() * 2 + 1) * 60 * 1000;
+        setTimeout(_ => this.updateStreamState(), timeToWaitBeforeNextUpdate)
     }
 
     putOnline() {
