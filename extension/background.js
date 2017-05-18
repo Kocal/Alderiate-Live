@@ -63,6 +63,7 @@ class AlderiateLive {
                 } catch (e) {
                     // Il y a du avoir une erreur pendant le parsing du JSON ??
                     console.info(e, xhr.responseText)
+                    this.prepareNextUpdate();
                 }
             }
         };
@@ -88,9 +89,13 @@ class AlderiateLive {
         isOnline ? this.putOnline() : this.putOffline();
         this.isOnline = isOnline;
 
-        // Entre 1 et 3 minutes
-        const timeToWaitBeforeNextUpdate = (Math.random() * 2 + 1) * 60 * 1000;
-        setTimeout(_ => this.updateStreamState(), timeToWaitBeforeNextUpdate)
+        this.prepareNextUpdate();
+    }
+
+    prepareNextUpdate () {
+      // Entre 1 et 3 minutes
+      const timeToWaitBeforeNextUpdate = (Math.random() * 2 + 1) * 60 * 1000;
+      setTimeout(_ => this.updateStreamState(), timeToWaitBeforeNextUpdate)
     }
 
     putOnline() {
