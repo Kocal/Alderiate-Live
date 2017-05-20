@@ -51,27 +51,27 @@ class AlderiateLive {
     updateStreamState() {
         console.info(new Date, "Mise à jour de l'état du stream...")
 
-        let xhr = new XMLHttpRequest();
         const clientId = this.CLIENT_IDS[Math.floor(Math.random() * this.CLIENT_IDS.length)];
-
-        // Connection à l'API de Twitch
-        xhr.open('GET', this.API_URL_STREAM, true);
-        xhr.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
-        xhr.setRequestHeader('Client-ID', clientId);
-        xhr.onreadystatechange = e => {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                try {
-                    this.handleResponse(JSON.parse(xhr.responseText))
-                } catch (e) {
-                    // Il y a du avoir une erreur pendant le parsing du JSON ??
-                    console.info(new Date, e, xhr.responseText)
-                }
-            }
-
-            this.prepareNextUpdate();
+        const headers = {
+            'Accept': 'application/vnd.twitchtv.v5+json',
+            'Client-ID': clientId
         };
+        const request = new Request(this.API_URL_STREAM, {headers});
 
-        xhr.send(null)
+        // Connexion à l'API de Twitch
+        fetch(request)
+            .then(response => {
+                if(response.ok) {
+                    response.json().then(json => this.handleResponse(json))
+                } else {
+                    console.error(new Date(), "Mauvaise réponse du réseau");
+                }
+            })
+            .catch(error => {
+                console.error(new Date(), "Erreur avec la fonction fetch()", error)
+            });
+
+        this.prepareNextUpdate();
     }
 
     /**
@@ -79,6 +79,8 @@ class AlderiateLive {
      * @param {Object} json Les données en JSON retournées par l'API Twitch
      */
     handleResponse(json) {
+        console.info(new Date, "Réponse bien récupérée", JSON.stringify(json, null, 2))
+
         let isOnline = json['streams'].length > 0;
 
         if (this.isOnline === false && isOnline === true) {
