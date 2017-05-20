@@ -49,6 +49,8 @@ class AlderiateLive {
      * Met à jour l'état en-ligne/hors-ligne d'un stream en particulier, en appelant l'API Twitch.
      */
     updateStreamState() {
+        console.info(new Date, "Mise à jour de l'état du stream...")
+
         let xhr = new XMLHttpRequest();
         const clientId = this.CLIENT_IDS[Math.floor(Math.random() * this.CLIENT_IDS.length)];
 
@@ -62,11 +64,13 @@ class AlderiateLive {
                     this.handleResponse(JSON.parse(xhr.responseText))
                 } catch (e) {
                     // Il y a du avoir une erreur pendant le parsing du JSON ??
-                    console.info(e, xhr.responseText)
-                    this.prepareNextUpdate();
+                    console.info(new Date, e, xhr.responseText)
                 }
             }
+
+            this.prepareNextUpdate();
         };
+
         xhr.send(null)
     }
 
@@ -88,13 +92,12 @@ class AlderiateLive {
 
         isOnline ? this.putOnline() : this.putOffline();
         this.isOnline = isOnline;
-
-        this.prepareNextUpdate();
     }
 
     prepareNextUpdate () {
       // Entre 1 et 3 minutes
       const timeToWaitBeforeNextUpdate = (Math.random() * 2 + 1) * 60 * 1000;
+      console.info(new Date, `Prochaine mise à jour de l'état du stream dans ${timeToWaitBeforeNextUpdate / 1000} secondes.`)
       setTimeout(_ => this.updateStreamState(), timeToWaitBeforeNextUpdate)
     }
 
