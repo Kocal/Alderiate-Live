@@ -23,7 +23,7 @@ class AlderiateLive {
          * L'URL du stream Twitch.
          * @type {string}
          */
-        this.URL_STREAM = 'https://www.twitch.tv/alderiate';
+        this.URL_STREAM = 'http://alderiate.com';
 
         /**
          * @type {Boolean|null}
