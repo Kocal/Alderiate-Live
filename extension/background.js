@@ -31,7 +31,8 @@ class AlderiateLive {
         this.isOnline = null;
 
         this.updateStreamState();
-        this.setupBadge()
+        this.setupBadge();
+        chrome.notifications.onClicked.addListener(_ => this._openStream());
     }
 
     /**
@@ -49,7 +50,7 @@ class AlderiateLive {
      * Met à jour l'état en-ligne/hors-ligne d'un stream en particulier, en appelant l'API Twitch.
      */
     updateStreamState() {
-        console.info(new Date, "Mise à jour de l'état du stream...")
+        console.info(new Date, "Mise à jour de l'état du stream...");
 
         const clientId = this.CLIENT_IDS[Math.floor(Math.random() * this.CLIENT_IDS.length)];
         const headers = {
@@ -79,17 +80,17 @@ class AlderiateLive {
      * @param {Object} json Les données en JSON retournées par l'API Twitch
      */
     handleResponse(json) {
-        console.info(new Date, "Réponse bien récupérée", JSON.stringify(json, null, 2))
+        console.info(new Date, "Réponse bien récupérée", JSON.stringify(json, null, 2));
 
         let isOnline = json['streams'].length > 0;
 
         if (this.isOnline === false && isOnline === true) {
-            chrome.notifications.create('alderiate', {
+            chrome.notifications.create({
                 type: 'basic',
                 iconUrl: '../icons/alderiate_128.png',
                 title: 'Alderiate est actuellement en live !',
                 message: json['streams'][0]['channel']['status'].trim()
-            }, _ => chrome.notifications.onClicked.addListener(_ => this._openStream()))
+            });
         }
 
         isOnline ? this.putOnline() : this.putOffline();
@@ -99,7 +100,7 @@ class AlderiateLive {
     prepareNextUpdate () {
       // Entre 1 et 3 minutes
       const timeToWaitBeforeNextUpdate = (Math.random() * 2 + 1) * 60 * 1000;
-      console.info(new Date, `Prochaine mise à jour de l'état du stream dans ${timeToWaitBeforeNextUpdate / 1000} secondes.`)
+      console.info(new Date, `Prochaine mise à jour de l'état du stream dans ${timeToWaitBeforeNextUpdate / 1000} secondes.`);
       setTimeout(_ => this.updateStreamState(), timeToWaitBeforeNextUpdate)
     }
 
