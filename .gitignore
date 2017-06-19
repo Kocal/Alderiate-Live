@@ -59,4 +59,5 @@ fabric.properties
 /node_modules/
 /.idea
 /*.iml
+/api/config.js
 /extension/dist/
