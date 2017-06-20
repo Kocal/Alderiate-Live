@@ -1,7 +1,7 @@
 {
   "name": "Alderiate Live",
   "description": "Notifie si le streamer Alderiate est en train de stream sur Twitch.",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "manifest_version": 2,
   "icons": {
     "48": "icons/alderiate_48.png",
@@ -9,7 +9,7 @@
   },
   "permissions": [
     "notifications",
-    "https://api.twitch.tv/"
+    "http://kocal.fr:6840/"
   ],
   "browser_action": {
     "default_title": "Alderiate Live",

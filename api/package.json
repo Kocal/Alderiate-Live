@@ -1,0 +1,15 @@
+{
+  "name": "api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "L'API pour l'extension navigateur d'Alderiate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hugo Alliaume <kocal@live.fr>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "axios": "^0.16.2"
+  }
+}

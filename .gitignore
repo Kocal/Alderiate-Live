@@ -57,6 +57,7 @@ crashlytics-build.properties
 fabric.properties
 
 /node_modules/
-/dist/
 /.idea
 /*.iml
+/api/config.js
+/extension/dist/
