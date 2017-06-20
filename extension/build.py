@@ -5,7 +5,7 @@ from __future__ import print_function
 import json
 import shutil
 
-EXTENSION_DIR = 'extension'
+EXTENSION_DIR = 'src'
 DIST_DIR = 'dist'
 
 
