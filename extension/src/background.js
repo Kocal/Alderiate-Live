@@ -3,27 +3,16 @@ class AlderiateLive {
     constructor() {
 
         /**
-         * Le CLIENT-ID de l'application pour utiliser l'API de Twitch.
-         * @type {Array.<String>}
+         * L'URL du stream Twitch.
+         * @type {string}
          */
-        this.CLIENT_IDS = [
-            'ohkwxw5a5g5h3kgm2g17uqbd1ayg7jr',
-            'te12rc42pyoc9w8fa616aefvxyofon',
-            '1ap2u0exhza74u3e7uc6y585ellqw2n',
-            'qgyxrwjpdukc345k0udgna3rengpse'
-        ];
+        this.URL_STREAM = 'http://alderiate.com';
 
         /**
          * L'URL a appeler pour avoir les infos sur un stream.
          * @type {string}
          */
-        this.API_URL_STREAM = 'https://api.twitch.tv/kraken/streams/?channel=77452537';
-
-        /**
-         * L'URL du stream Twitch.
-         * @type {string}
-         */
-        this.URL_STREAM = 'http://alderiate.com';
+        this.API_URL_STREAM = 'http://kocal.fr:6840/';
 
         /**
          * @type {Boolean|null}
@@ -52,20 +41,13 @@ class AlderiateLive {
     updateStreamState() {
         console.info(new Date, "Mise à jour de l'état du stream...");
 
-        const clientId = this.CLIENT_IDS[Math.floor(Math.random() * this.CLIENT_IDS.length)];
-        const headers = {
-            'Accept': 'application/vnd.twitchtv.v5+json',
-            'Client-ID': clientId
-        };
-        const request = new Request(this.API_URL_STREAM, {headers});
-
         // Connexion à l'API de Twitch
-        fetch(request)
+        fetch(this.API_URL_STREAM)
             .then(response => {
                 if(response.ok) {
                     response.json().then(json => this.handleResponse(json))
                 } else {
-                    console.error(new Date(), "Mauvaise réponse du réseau");
+                    console.error(new Date(), "Mauvaise réponse du réseau", response);
                 }
             })
             .catch(error => {
@@ -82,14 +64,14 @@ class AlderiateLive {
     handleResponse(json) {
         console.info(new Date, "Réponse bien récupérée", JSON.stringify(json, null, 2));
 
-        let isOnline = json['streams'].length > 0;
+        let isOnline = !!json['streaming'];
 
         if (this.isOnline === false && isOnline === true) {
             chrome.notifications.create({
                 type: 'basic',
                 iconUrl: '../icons/alderiate_128.png',
                 title: 'Alderiate est actuellement en live !',
-                message: json['streams'][0]['channel']['status'].trim()
+                message: json['title']
             });
         }
 
@@ -98,8 +80,10 @@ class AlderiateLive {
     }
 
     prepareNextUpdate () {
-      // Entre 1 et 3 minutes
-      const timeToWaitBeforeNextUpdate = (Math.random() * 2 + 1) * 60 * 1000;
+      const min = 1000;
+      const max = 1200;
+      const timeToWaitBeforeNextUpdate = (Math.random() * (max - min) + min) * 60;
+
       console.info(new Date, `Prochaine mise à jour de l'état du stream dans ${timeToWaitBeforeNextUpdate / 1000} secondes.`);
       setTimeout(_ => this.updateStreamState(), timeToWaitBeforeNextUpdate)
     }
