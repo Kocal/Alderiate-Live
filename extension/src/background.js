@@ -12,7 +12,7 @@ class AlderiateLive {
          * L'URL a appeler pour avoir les infos sur un stream.
          * @type {string}
          */
-        this.API_URL_STREAM = 'http://kocal.fr:6840/';
+        this.API_URL_STREAM = 'https://api.kocal.fr/stream/alderiate';
 
         /**
          * @type {Boolean|null}
