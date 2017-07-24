@@ -9,7 +9,7 @@
   },
   "permissions": [
     "notifications",
-    "https://api.kocal.fr/stream/alderiate"
+    "https://alderiate.com/"
   ],
   "browser_action": {
     "default_title": "Alderiate Live",

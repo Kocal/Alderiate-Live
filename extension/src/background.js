@@ -12,7 +12,7 @@ class AlderiateLive {
          * L'URL a appeler pour avoir les infos sur un stream.
          * @type {string}
          */
-        this.API_URL_STREAM = 'https://api.kocal.fr/stream/alderiate';
+        this.API_URL_STREAM = 'https://alderiate.com/ajaxfront/getTwitchInfos';
 
         /**
          * @type {Boolean|null}
@@ -64,7 +64,7 @@ class AlderiateLive {
     handleResponse(json) {
         console.info(new Date, "Réponse bien récupérée", JSON.stringify(json, null, 2));
 
-        let isOnline = !!json['streaming'];
+        let isOnline = json['isOnline'] === 1;
 
         if (this.isOnline === false && isOnline === true) {
             chrome.notifications.create({
