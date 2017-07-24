@@ -1,7 +1,7 @@
 {
   "name": "Alderiate Live",
   "description": "Notifie si le streamer Alderiate est en train de stream sur Twitch.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "manifest_version": 2,
   "icons": {
     "48": "icons/alderiate_48.png",
