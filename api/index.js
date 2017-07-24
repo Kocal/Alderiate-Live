@@ -5,7 +5,7 @@ const axios = require('axios');
 const config = require('./config');
 
 const server = http.createServer((req, res) => {
-  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.end(JSON.stringify(jsonResponse));
 }).listen(process.env.PORT || config.LISTENING_PORT, function () {
   console.log('App listening on port %d in env %s', process.env.PORT || config.LISTENING_PORT, process.env.NODE_ENV);
