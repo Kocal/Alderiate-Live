@@ -1,7 +1,7 @@
 {
   "name": "api",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "L'API pour l'extension navigateur d'Alderiate",
   "main": "index.js",
   "scripts": {
