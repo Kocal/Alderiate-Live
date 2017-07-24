@@ -70,7 +70,7 @@ class AlderiateLive {
             chrome.notifications.create({
                 type: 'basic',
                 iconUrl: '../icons/alderiate_128.png',
-                title: 'Alderiate est actuellement en live !',
+                title: `Alderiate est en live sur ${json['game']}!`,
                 message: json['title']
             });
         }
