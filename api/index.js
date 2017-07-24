@@ -25,9 +25,12 @@ function requestTwitch() {
       if (data['_total'] === 0) {
         jsonResponse = {streaming: false}
       } else {
+        const stream = data['streams'][0];
+
         jsonResponse = {
           streaming: true,
-          title: data['streams'][0]['channel']['status'].trim(),
+          title: stream['channel']['status'].trim(),
+          game: stream['game'],
         }
       }
     })
