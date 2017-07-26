@@ -12,7 +12,7 @@ class AlderiateLive {
          * L'URL a appeler pour avoir les infos sur un stream.
          * @type {string}
          */
-        this.API_URL_STREAM = 'https://alderiate.com/ajaxfront/getTwitchInfos';
+        this.API_URL_STREAM = 'https://alderiate.com/twitch.json';
 
         /**
          * @type {Boolean|null}
@@ -20,6 +20,7 @@ class AlderiateLive {
         this.isOnline = null;
 
         this.updateStreamState();
+        this.putOffline();
         this.setupBadge();
         chrome.notifications.onClicked.addListener(_ => this._openStream());
     }
@@ -64,14 +65,14 @@ class AlderiateLive {
     handleResponse(json) {
         console.info(new Date, "Réponse bien récupérée", JSON.stringify(json, null, 2));
 
-        let isOnline = json['isOnline'] === 1;
+        let isOnline = json['twitch'] === 1;
 
         if (this.isOnline === false && isOnline === true) {
             chrome.notifications.create({
                 type: 'basic',
                 iconUrl: '../icons/alderiate_128.png',
-                title: `Alderiate est en live sur ${json['game']}!`,
-                message: json['title']
+                title: `Alderiate est en live sur ${json['twitchGame'] || 'Twitch'}!`,
+                message: json['twitchTitle'] || ''
             });
         }
 
