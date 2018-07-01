@@ -43,21 +43,6 @@ const putOfflineState = () => {
   setBadgeColor('gray');
 };
 
-const requestApi = () => {
-  logger.info("Requête vers l'API");
-
-  axios.get(urlApi)
-    .then(response => response.data)
-    .then(json => handleApiResponse(json))
-    .catch(e => {
-      logger.error("Erreur lors de la requête vers l'API");
-      console.error(e);
-    })
-    .finally(() => {
-      setTimeout(() => requestApi(), secondsBeforeNextApiRequest * 1000);
-    });
-};
-
 /**
  * @param {Object} json
  * @param {Number} json.twitch
@@ -83,6 +68,23 @@ const handleApiResponse = json => {
     isOnline = false;
     putOfflineState();
   }
+};
+
+const requestApi = () => {
+  logger.info("Requête vers l'API");
+
+  axios
+    .get(urlApi)
+    .then(response => response.data)
+    .then(json => handleApiResponse(json))
+    .catch(e => {
+      logger.error("Erreur lors de la requête vers l'API");
+      // eslint-disable-next-line no-console
+      console.error(e);
+    })
+    .finally(() => {
+      setTimeout(() => requestApi(), secondsBeforeNextApiRequest * 1000);
+    });
 };
 
 logger.debug("Initialisation de l'application");
