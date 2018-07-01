@@ -16,6 +16,7 @@
     "watch:dev": "cross-env HMR=true npm run build:dev -- --watch"
   },
   "dependencies": {
+    "@kocal/logger": "^1.0.0",
     "axios": "^0.18.0",
     "vue": "^2.5.13"
   },
