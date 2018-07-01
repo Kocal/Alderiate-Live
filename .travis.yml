@@ -23,6 +23,7 @@ script:
   - yarn build-zip
   - test -f dist/manifest.json
   - test -f dist/background.js
+  - test -f dist/vendor.js
   - cmp src/icons/icon_48.png dist/icons/icon_48.png
   - cmp src/icons/icon_128.png dist/icons/icon_128.png
   - test -f "dist-zip/alderiate-live-v$(node -pe "require('./package.json').version").zip"

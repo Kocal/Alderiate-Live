@@ -19,6 +19,13 @@ const config = {
   resolve: {
     extensions: ['.js', '.vue'],
   },
+  optimization: {
+    runtimeChunk: false,
+    splitChunks: {
+      chunks: 'all',
+      name: 'vendor',
+    },
+  },
   module: {
     rules: [
       {
