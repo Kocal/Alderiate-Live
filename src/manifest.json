@@ -8,8 +8,7 @@
     "128": "icons/icon_128.png"
   },
   "browser_action": {
-    "default_title": "alderiate-live",
-    "default_popup": "popup/popup.html"
+    "default_title": "alderiate-live"
   },
   "background": {
     "scripts": [

@@ -27,8 +27,6 @@ script:
   - test -f dist/background.js
   - test -f dist/vendor.js
   - test -f dist/vendor.css
-  - test -f dist/popup/popup.js
-  - test -f dist/popup/popup.css
   - test -f dist/options/options.js
   - test -f dist/options/options.css
   - test -f "dist-zip/alderiate-live-v$(node -pe "require('./package.json').version").zip"
