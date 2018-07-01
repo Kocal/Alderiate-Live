@@ -5,6 +5,7 @@
   "author": "Hugo Alliaume <kocal@live.fr>",
   "license": "MIT",
   "scripts": {
+    "release": "standard-version",
     "lint": "eslint --ext .js,.vue src",
     "prettier": "prettier 'src/**/*.{js,vue}'",
     "prettier:write": "npm run prettier -- --write",
