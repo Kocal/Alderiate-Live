@@ -13,7 +13,8 @@
     "build:dev": "cross-env NODE_ENV=development webpack --hide-modules",
     "build-zip": "node scripts/build-zip.js",
     "watch": "npm run build -- --watch",
-    "watch:dev": "cross-env HMR=true npm run build:dev -- --watch"
+    "watch:dev": "cross-env HMR=true npm run build:dev -- --watch",
+    "server-fixtures": "http-server fixtures -p 7718 --cors -o -c-1"
   },
   "dependencies": {
     "@kocal/logger": "^1.0.0",

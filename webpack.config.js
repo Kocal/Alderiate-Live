@@ -67,6 +67,7 @@ const config = {
 
           if (config.mode === 'development') {
             jsonContent['content_security_policy'] = "script-src 'self' 'unsafe-eval'; object-src 'self'";
+            jsonContent.permissions.push('http://127.0.0.1:8080');
           }
 
           return JSON.stringify(jsonContent, null, 2);
