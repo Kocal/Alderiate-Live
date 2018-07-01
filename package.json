@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Extension navigateur pour le streamer Alderiate",
   "author": "Hugo Alliaume <kocal@live.fr>",
+  "license": "MIT",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "prettier": "prettier 'src/**/*.{js,vue}'",
