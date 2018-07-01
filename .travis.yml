@@ -13,7 +13,6 @@ cache:
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
-  - yarn global add codecov
 
 before_script:
   - if [ -f $(git rev-parse --git-dir)/shallow ]; then git fetch --unshallow; fi
@@ -22,15 +21,11 @@ before_script:
 script:
   - yarn build
   - yarn build-zip
-  - yarn test && codecov
   - test -f dist/manifest.json
   - test -f dist/background.js
   - test -f dist/vendor.js
-  - test -f dist/vendor.css
-  - test -f dist/popup/popup.js
-  - test -f dist/popup/popup.css
-  - test -f dist/options/options.js
-  - test -f dist/options/options.css
+  - cmp src/icons/icon_48.png dist/icons/icon_48.png
+  - cmp src/icons/icon_128.png dist/icons/icon_128.png
   - test -f "dist-zip/alderiate-live-v$(node -pe "require('./package.json').version").zip"
 
 before_deploy:

@@ -11,7 +11,6 @@ const config = {
   context: __dirname + '/src',
   entry: {
     'background': './background.js',
-    'popup/popup': './popup/popup.js',
   },
   output: {
     path: __dirname + '/dist',
@@ -19,6 +18,13 @@ const config = {
   },
   resolve: {
     extensions: ['.js', '.vue'],
+  },
+  optimization: {
+    runtimeChunk: false,
+    splitChunks: {
+      chunks: 'all',
+      name: 'vendor',
+    },
   },
   module: {
     rules: [
@@ -59,7 +65,6 @@ const config = {
     }),
     new CopyWebpackPlugin([
       { from: 'icons', to: 'icons', ignore: ['icon.xcf'] },
-      { from: 'popup/popup.html', to: 'popup/popup.html' },
       {
         from: 'manifest.json',
         to: 'manifest.json',
@@ -69,6 +74,7 @@ const config = {
 
           if (config.mode === 'development') {
             jsonContent['content_security_policy'] = "script-src 'self' 'unsafe-eval'; object-src 'self'";
+            jsonContent.permissions.push('http://127.0.0.1:8080');
           }
 
           return JSON.stringify(jsonContent, null, 2);

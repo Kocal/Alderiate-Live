@@ -1,6 +1,6 @@
 {
   "name": "alderiate-live",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "description": "Extension navigateur pour le streamer Alderiate",
   "author": "Hugo Alliaume <kocal@live.fr>",
   "license": "MIT",
@@ -13,9 +13,11 @@
     "build:dev": "cross-env NODE_ENV=development webpack --hide-modules",
     "build-zip": "node scripts/build-zip.js",
     "watch": "npm run build -- --watch",
-    "watch:dev": "cross-env HMR=true npm run build:dev -- --watch"
+    "watch:dev": "cross-env HMR=true npm run build:dev -- --watch",
+    "server-fixtures": "http-server fixtures -p 7718 --cors -o -c-1"
   },
   "dependencies": {
+    "@kocal/logger": "^1.0.0",
     "axios": "^0.18.0",
     "vue": "^2.5.13"
   },
@@ -23,6 +25,7 @@
     "@babel/core": "^7.0.0-beta.49",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.49",
     "@babel/preset-env": "^7.0.0-beta.49",
+    "@types/chrome": "^0.0.69",
     "babel-eslint": "^8.2.3",
     "babel-loader": "8.0.0-beta.3",
     "copy-webpack-plugin": "^4.0.1",
@@ -38,6 +41,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-vue": "^4.0.0",
     "file-loader": "^1.1.11",
+    "http-server": "^0.11.1",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.5.3",
     "prettier": "^1.13.5",
