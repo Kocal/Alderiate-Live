@@ -1,6 +1,6 @@
 {
   "name": "alderiate-live",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "Extension navigateur pour le streamer Alderiate",
   "author": "Hugo Alliaume <kocal@live.fr>",
   "license": "MIT",
