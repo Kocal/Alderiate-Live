@@ -19,6 +19,7 @@
   },
   "background": {
     "scripts": [
+      "vendor.js",
       "background.js"
     ]
   }
