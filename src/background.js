@@ -5,7 +5,7 @@ import { onBadgeClick, setBadgeColor, setBadgeText } from './utils/chrome/badge'
 import { createNotification, onNotificationClick } from './utils/chrome/notification';
 
 const logger = Logger.getLogger();
-const urlStream = 'https://alderiate.com';
+const urlStream = 'https://www.alderiate.com';
 const urlApi = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7718/twitch.json' : `${urlStream}/twitch.json`;
 const secondsBeforeNextApiRequest = process.env.NODE_ENV === 'development' ? 5 : 60;
 let isOnline = false;
