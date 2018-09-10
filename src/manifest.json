@@ -5,7 +5,7 @@
   "manifest_version": 2,
   "permissions": [
     "notifications",
-    "https://alderiate.com/"
+    "https://*.alderiate.com/"
   ],
   "icons": {
     "48": "icons/icon_48.png",
