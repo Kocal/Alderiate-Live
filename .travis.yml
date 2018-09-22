@@ -39,5 +39,5 @@ deploy:
   file: "${RELEASE_EXTENSION_FILE}"
   skip_cleanup: true
   on:
-    repo: Kocal/Alderiate-Live
+    repo: Kocal-Web-Extensions/Alderiate-Live
     tags: true
