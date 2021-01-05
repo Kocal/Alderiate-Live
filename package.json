@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@kocal/logger": "^1.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "vue": "^2.5.13"
   },
   "devDependencies": {
